@@ -31,6 +31,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
+import { ChevronRight } from "lucide-react";
 
 const formSchema = z.object({
   type: z.string().min(1, { message: "Please select a type." }),
@@ -59,21 +60,23 @@ export default function Generator() {
   }
 
   return (
-    <div className="flex flex-col gap-4 w-full">
+    <div className="flex flex-col gap-3 w-full">
       <Label>
-        Select a show type, paste an
+        Select a show type, paste an&nbsp;
         <Button variant={"link"} className="px-0">
           <Link
             href="https://www.imdb.com"
             target="_blank"
             className="underline"
           >
-            &nbsp;IMDB&nbsp;
+            IMDB
           </Link>{" "}
         </Button>
-        code and you&apos;re good to go.&nbsp;
+        &nbsp;code and you&apos;re good to go.&nbsp;
         <Drawer>
-          <DrawerTrigger className="underline">How?</DrawerTrigger>
+          <DrawerTrigger className="underline underline-offset-4">
+            How?
+          </DrawerTrigger>
           <DrawerContent>
             <DrawerHeader>
               <DrawerTitle>Getting IMDB code</DrawerTitle>
@@ -94,59 +97,54 @@ export default function Generator() {
                 </div>
               </li>
             </ul>
-            {/* <DrawerFooter>
-              <DrawerClose>
-                <Button variant="outline">Close</Button>
-              </DrawerClose>
-            </DrawerFooter> */}
           </DrawerContent>
         </Drawer>
       </Label>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="grid grid-cols-7 gap-2"
+          className="w-full flex justify-between items-center gap-3"
         >
-          <div className="grid grid-cols-2 gap-2 col-span-6">
-            <FormField
-              control={form.control}
-              name="type"
-              render={({ field }) => (
-                <FormItem>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Movie/Series" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      <SelectItem value="movie">Movie</SelectItem>
-                      <SelectItem value="tv">Series</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="code"
-              render={({ field }) => (
-                <FormItem>
+          <FormField
+            control={form.control}
+            name="type"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
                   <FormControl>
-                    <Input placeholder="IMDB code" {...field} />
+                    <SelectTrigger>
+                      <SelectValue placeholder="Movie/Series" />
+                    </SelectTrigger>
                   </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
+                  <SelectContent>
+                    <SelectItem value="movie">Movie</SelectItem>
+                    <SelectItem value="tv">Series</SelectItem>
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-          <Button type="submit">Go</Button>
+          <FormField
+            control={form.control}
+            name="code"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormControl>
+                  <Input placeholder="IMDB code" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <Button type="submit">
+            <ChevronRight className="w-4 h-4" />
+          </Button>
         </form>
       </Form>
     </div>
