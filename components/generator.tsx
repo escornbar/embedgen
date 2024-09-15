@@ -2,6 +2,7 @@
 
 import { z } from "zod";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -23,6 +24,13 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
+import {
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
 
 const formSchema = z.object({
   type: z.string().min(1, { message: "Please select a type." }),
@@ -63,7 +71,36 @@ export default function Generator() {
             &nbsp;IMDB&nbsp;
           </Link>{" "}
         </Button>
-        code and you&apos;re good to go
+        code and you&apos;re good to go.&nbsp;
+        <Drawer>
+          <DrawerTrigger className="underline">How?</DrawerTrigger>
+          <DrawerContent>
+            <DrawerHeader>
+              <DrawerTitle>Getting IMDB code</DrawerTitle>
+            </DrawerHeader>
+            <ul className="mt-0 m-6 list-inside list-decimal [&>li]:mt-2 text-sm">
+              <li>Search for your desired movie or show</li>
+              <li>Click on your browser search bar</li>
+              <li>
+                Copy the code as highlighted from the IMDB page url
+                <div>
+                  <Image
+                    src="/ss_1.png"
+                    alt="IMDB code"
+                    width={500}
+                    height={100}
+                    className="my-2 rounded-md"
+                  />
+                </div>
+              </li>
+            </ul>
+            {/* <DrawerFooter>
+              <DrawerClose>
+                <Button variant="outline">Close</Button>
+              </DrawerClose>
+            </DrawerFooter> */}
+          </DrawerContent>
+        </Drawer>
       </Label>
       <Form {...form}>
         <form
